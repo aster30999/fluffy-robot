@@ -54,7 +54,7 @@ development_status:
   # Goal: Set up CI/CD pipeline and Docker container for reproducible development
   # ============================================================================
   epic-0: in-progress
-  0-005-ci-cd-pipeline-setup: in-progress
+  0-005-ci-cd-pipeline-setup: done
   0-006-docker-setup: backlog
   epic-0-retrospective: optional
 
@@ -266,9 +266,9 @@ metrics:
   
   stories_backlog: 35
   stories_ready_for_dev: 0
-  stories_in_progress: 1
+  stories_in_progress: 0
   stories_review: 0
-  stories_done: 0
+  stories_done: 1
   
   completion_percentage: 2.78
   mvp_completion_percentage: 3.23
