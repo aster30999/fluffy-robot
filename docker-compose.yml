@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  trading-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: solana-trading-bot
+    restart: unless-stopped
+    environment:
+      # Default to Devnet (override for mainnet)
+      - SOLANA_RPC_URL=${SOLANA_RPC_URL:-https://api.devnet.solana.com}
+      - NETWORK=${NETWORK:-devnet}
+      - JUPITER_API_KEY=${JUPITER_API_KEY:-}
+      - WALLET_PRIVATE_KEY=${WALLET_PRIVATE_KEY:-}
+      # Optional: Load from .env file
+      - PYTHONPATH=/app
+    volumes:
+      # Mount source code for development (optional)
+      - ./src:/app/src:ro
+      - ./tests:/app/tests:ro
+    command: python -c "print('Solana Trading Bot - Running in Docker'); import src; print('Module imported successfully')"
+    networks:
+      - trading-network
+
+  # Optional: Add more services here for future expansion
+  # e.g., Redis for caching, PostgreSQL for data storage, etc.
+
+networks:
+  trading-network:
+    driver: bridge
+
+# ============================================================================
+# Usage:
+#
+# 1. Build and run:
+#    docker-compose up --build
+#
+# 2. Run with custom environment:
+#    SOLANA_RPC_URL=https://api.mainnet-beta.solana.com NETWORK=mainnet docker-compose up
+#
+# 3. Run tests in container:
+#    docker-compose run --rm trading-bot pytest tests/ -v
+#
+# 4. Shell access:
+#    docker-compose exec trading-bot bash
+#
+# 5. Stop:
+#    docker-compose down
+# ============================================================================

@@ -150,6 +150,73 @@ If the airdrop fails, try:
 - `base58>=2.1.0` - Base58 encoding
 - `python-dotenv>=1.0.0` - Environment variables
 
+## 🐳 Docker
+
+Run the trading bot in a reproducible containerized environment.
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/) installed
+- [Docker Compose](https://docs.docker.com/compose/) (optional, for development)
+
+### Quick Start
+
+```bash
+# Build the Docker image
+docker build -t solana-trading-bot .
+
+# Run the container
+docker run -it --rm solana-trading-bot
+```
+
+### Development with Docker Compose
+
+```bash
+# Build and run with environment variables
+docker-compose up --build
+
+# Run tests in container
+docker-compose run --rm trading-bot pytest tests/ -v
+
+# Access shell
+docker-compose exec trading-bot bash
+
+# Stop
+docker-compose down
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `SOLANA_RPC_URL` | Solana RPC endpoint | `https://api.devnet.solana.com` |
+| `NETWORK` | Network to use | `devnet` |
+| `JUPITER_API_KEY` | Jupiter API key (optional) | - |
+| `WALLET_PRIVATE_KEY` | Wallet private key | - |
+
+### Mainnet Configuration
+
+```bash
+# Run on mainnet
+docker run -it --rm \
+  -e NETWORK=mainnet \
+  -e SOLANA_RPC_URL=https://api.mainnet-beta.solana.com \
+  solana-trading-bot
+```
+
+### Notes
+
+- By default, containers run on **Devnet** for development
+- Multi-stage build keeps final image small (~200MB)
+- Non-root user for security
+- Python 3.12.3 matches local development environment
+
+## Dockerfile Structure
+
+- **Stage 1**: Build stage installs all dependencies in a virtual environment
+- **Stage 2**: Runtime stage copies only the virtual environment for a slim final image
+- Uses `python:3.12.3-slim` as base image
+
 ## License
 
 MIT License
