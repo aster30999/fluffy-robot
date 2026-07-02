@@ -7,9 +7,32 @@ Tests use mocking to avoid real RPC calls.
 import pytest
 import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch, mock_open
-from httpx import AsyncClient, Response
+from httpx import AsyncClient, Response, Request
 
 # Optional imports - mock if not available for testing
+
+def create_mock_response(status_code: int, json_data: dict = None, headers: dict = None):
+    """Create a properly mocked httpx Response object."""
+    request = MagicMock(spec=Request)
+    request.url = "http://test"
+    request.method = "POST"
+    request.headers = {}
+    
+    response = MagicMock(spec=Response)
+    response.status_code = status_code
+    response.json = MagicMock(return_value=json_data or {})
+    response.text = "{}"
+    response.request = request
+    response.headers = headers or {}
+    response.is_closed = False
+    
+    def raise_for_status():
+        if 400 <= status_code < 600:
+            raise Exception(f"HTTP {status_code}")
+    
+    response.raise_for_status = raise_for_status
+    
+    return response
 try:
     from solana.keypair import Keypair
     from solana.publickey import PublicKey
@@ -352,7 +375,7 @@ async def test_get_transaction_info(mock_client):
 @pytest.mark.asyncio
 async def test_http_request_success(mock_client):
     """Test successful HTTP request."""
-    mock_response = Response(200, json={"jsonrpc": "2.0", "id": 1, "result": {"value": 42}})
+    mock_response = create_mock_response(200, {"jsonrpc": "2.0", "id": 1, "result": {"value": 42}})
     
     with patch.object(AsyncClient, 'request', new_callable=AsyncMock) as mock_request:
         mock_request.return_value = mock_response
@@ -369,8 +392,8 @@ async def test_http_request_success(mock_client):
 @pytest.mark.asyncio
 async def test_http_request_retry_success(mock_client):
     """Test HTTP request retry on failure."""
-    mock_error_response = Response(500, json={"error": "server error"})
-    mock_success_response = Response(200, json={"result": "success"})
+    mock_error_response = create_mock_response(500, {"error": "server error"})
+    mock_success_response = create_mock_response(200, {"result": "success"})
     
     with patch.object(AsyncClient, 'request', new_callable=AsyncMock) as mock_request:
         mock_request.side_effect = [mock_error_response, mock_success_response]
@@ -388,7 +411,7 @@ async def test_http_request_retry_success(mock_client):
 @pytest.mark.asyncio
 async def test_http_request_max_retries_exceeded(mock_client):
     """Test HTTP request max retries exceeded."""
-    mock_error_response = Response(500, json={"error": "server error"})
+    mock_error_response = create_mock_response(500, {"error": "server error"})
     
     with patch.object(AsyncClient, 'request', new_callable=AsyncMock) as mock_request:
         mock_request.return_value = mock_error_response

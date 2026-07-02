@@ -78,4 +78,4 @@ logs/
 
 # Local config
 config.local.json
-secrets.json
+secrets.json.agents/

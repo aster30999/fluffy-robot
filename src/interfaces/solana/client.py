@@ -137,6 +137,7 @@ class SolanaClient:
         rpc_url: Optional[str] = None,
         timeout: float = 30.0,
         max_retries: int = 3,
+        retry_delay: float = 1.0,
     ):
         """
         Initialize Solana client.
@@ -145,10 +146,12 @@ class SolanaClient:
             rpc_url: Solana RPC URL (default from settings)
             timeout: Request timeout in seconds
             max_retries: Maximum number of retries
+            retry_delay: Initial delay between retries in seconds (exponential backoff)
         """
         self.rpc_url = rpc_url or getattr(settings, 'solana_rpc_url', 'https://api.devnet.solana.com')
         self.timeout = timeout
         self.max_retries = max_retries
+        self.retry_delay = retry_delay
         
         # Lazy initialization
         self._async_client: Optional[SolanaAsyncClient] = None
@@ -167,7 +170,7 @@ class SolanaClient:
     
     async def _ensure_clients(self):
         """Ensure both clients are initialized."""
-        if self._async_client is None or self._async_client._closed:
+        if self._async_client is None or not self._async_client.is_connected():
             self._async_client = SolanaAsyncClient(self.rpc_url)
         if self._http_client is None or self._http_client.is_closed:
             self._http_client = httpx.AsyncClient(
@@ -177,8 +180,12 @@ class SolanaClient:
     
     async def close(self):
         """Close all clients."""
-        if self._async_client and not self._async_client._closed:
-            await self._async_client.close()
+        if self._async_client:
+            try:
+                if self._async_client.is_connected():
+                    await self._async_client.close()
+            except:
+                pass
             self._async_client = None
         if self._http_client and not self._http_client.is_closed:
             await self._http_client.aclose()
@@ -212,7 +219,7 @@ class SolanaClient:
             except Exception as e:
                 last_exception = e
                 if attempt < self.max_retries:
-                    delay = 1.0 * (2 ** attempt)
+                    delay = self.retry_delay * (2 ** attempt)
                     await asyncio.sleep(delay)
                     continue
                 raise SolanaConnectionError(f"HTTP request failed after {self.max_retries} retries: {e}")

@@ -287,6 +287,12 @@ class JupiterClient:
         except JupiterError as e:
             raise JupiterQuoteError(f"Failed to get quote: {e}")
         
+        # Validate required fields
+        if "outAmount" not in data:
+            raise JupiterQuoteError("Invalid quote response: missing outAmount field")
+        if "quoteId" not in data:
+            raise JupiterQuoteError("Invalid quote response: missing quoteId field")
+        
         # Parse response
         try:
             return QuoteResponse(

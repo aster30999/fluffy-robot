@@ -7,7 +7,33 @@ Tests use mocking to avoid real API calls.
 import pytest
 import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch
-from httpx import AsyncClient, Response, HTTPStatusError
+from httpx import AsyncClient, Response, HTTPStatusError, Request
+
+
+def create_mock_response(status_code: int, json_data: dict = None, headers: dict = None):
+    """Create a properly mocked httpx Response object."""
+    request = MagicMock(spec=Request)
+    request.url = "http://test"
+    request.method = "GET"
+    request.headers = {}
+    
+    response = MagicMock(spec=Response)
+    response.status_code = status_code
+    response._status_code = status_code  # Also set as direct attribute
+    response.json = MagicMock(return_value=json_data or {})
+    response.text = "{}"
+    response.request = request
+    response.headers = headers or {}
+    response.is_closed = False
+    
+    def raise_for_status():
+        if 400 <= response.status_code < 600:
+            raise HTTPStatusError(f"HTTP {response.status_code}", request=request, response=response)
+    
+    response.raise_for_status = raise_for_status
+    
+    return response
+
 
 from src.interfaces.jupiter.client import (
     JupiterClient,
@@ -258,7 +284,7 @@ async def test_rate_limit_retry(mock_client):
 @pytest.mark.asyncio
 async def test_max_retries_exceeded(mock_client):
     """Test max retries exceeded."""
-    mock_error_response = Response(500, json={"error": "server error"})
+    mock_error_response = create_mock_response(500, {"error": "server error"})
     
     with patch.object(AsyncClient, 'request', new_callable=AsyncMock) as mock_request:
         mock_request.return_value = mock_error_response
@@ -284,7 +310,7 @@ async def test_http_status_errors(mock_client):
     ]
     
     for status_code, expected_exception in error_cases:
-        mock_response = Response(status_code, json={"error": "test"})
+        mock_response = create_mock_response(status_code, {"error": "test"})
         
         with patch.object(AsyncClient, 'request', new_callable=AsyncMock) as mock_request:
             mock_request.return_value = mock_response
