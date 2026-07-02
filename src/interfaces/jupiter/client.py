@@ -204,17 +204,18 @@ class JupiterClient:
             try:
                 response = await client.request(method, endpoint, **kwargs)
                 
-                # Check for rate limiting
+                # Check for errors
                 if response.status_code == 429:
+                    # Rate limited
                     retry_after = float(response.headers.get('retry-after', self.retry_delay))
                     if attempt < self.max_retries:
                         logger.warning(f"Rate limited. Retrying after {retry_after}s (attempt {attempt + 1}/{self.max_retries + 1})")
                         await asyncio.sleep(retry_after)
                         continue
                     raise JupiterRateLimitError(f"Rate limit exceeded after {self.max_retries} retries")
-                
-                # Check for other errors
-                response.raise_for_status()
+                elif 400 <= response.status_code < 600:
+                    # Other HTTP errors
+                    raise JupiterError(f"HTTP error {response.status_code}: {response.text}")
                 
                 # Parse JSON
                 try:
