@@ -32,6 +32,15 @@ from .balance import (
     Portfolio,
 )
 
+# Trade and Decision Models (US-012)
+from .trade import (
+    Decision,
+    Signal,
+    Trade,
+    TradeStatus,
+    TradeType,
+)
+
 __all__ = [
     # US-010 Models
     "Price",
@@ -42,4 +51,10 @@ __all__ = [
     # US-011 Models
     "Balance",
     "Portfolio",
+    # US-012 Models
+    "Trade",
+    "TradeStatus",
+    "TradeType",
+    "Decision",
+    "Signal",
 ]

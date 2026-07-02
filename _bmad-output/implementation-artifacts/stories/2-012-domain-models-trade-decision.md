@@ -4,7 +4,7 @@ story_id: "2-012-domain-models-trade-decision"
 epic: "Epic 2: Core Trading Engine"
 project: "Solana Trading Bot"
 created: 2026-07-02
-status: "ready-for-dev"
+status: "review"
 priority: P0
 dependencies: ["US-001", "US-002", "US-010", "US-011"]
 estimate_hours: 3
@@ -12,6 +12,7 @@ type: "technical"
 mvp: true
 source_epic: "/_bmad-output/planning-artifacts/epics-and-stories-2026-06-30/EPICS-AND-STORIES.md"
 source_architecture: "/_bmad-output/planning-artifacts/architecture-trading-bot-2026-06-30/ARCHITECTURE-SPINE.md"
+baseline_commit: "081bbe8a89f161325c0792f9c11d0ddf6be500b7"
 ---
 
 # US-012: Domain Models - Trade & Decision
@@ -24,23 +25,23 @@ source_architecture: "/_bmad-output/planning-artifacts/architecture-trading-bot-
 
 ## ✅ Acceptance Criteria
 
-- [ ] `Trade` dataclass with all trade details
-- [ ] `TradeStatus` enum (PENDING, SUCCESS, FAILED)
-- [ ] `TradeType` enum (BUY, SELL, SWAP)
-- [ ] `Decision` dataclass for trading decisions
-- [ ] `Signal` enum (BUY, SELL, NEUTRAL)
-- [ ] Proper type hints and docstrings
+- [x] `Trade` dataclass with all trade details
+- [x] `TradeStatus` enum (PENDING, SUCCESS, FAILED)
+- [x] `TradeType` enum (BUY, SELL, SWAP)
+- [x] `Decision` dataclass for trading decisions
+- [x] `Signal` enum (BUY, SELL, NEUTRAL)
+- [x] Proper type hints and docstrings
 
 ## 📋 Tasks
 
-- [ ] Create `src/core/models/trade.py` module
-- [ ] Implement `Trade` dataclass with trade details
-- [ ] Implement `TradeStatus` enum (PENDING, SUCCESS, FAILED)
-- [ ] Implement `TradeType` enum (BUY, SELL, SWAP)
-- [ ] Implement `Decision` dataclass for trading decisions
-- [ ] Implement `Signal` enum (BUY, SELL, NEUTRAL)
-- [ ] Add type hints and docstrings following Google style
-- [ ] Add unit tests for all models in `tests/unit/core/models/test_trade.py`
+- [x] Create `src/core/models/trade.py` module
+- [x] Implement `Trade` dataclass with trade details
+- [x] Implement `TradeStatus` enum (PENDING, SUCCESS, FAILED)
+- [x] Implement `TradeType` enum (BUY, SELL, SWAP)
+- [x] Implement `Decision` dataclass for trading decisions
+- [x] Implement `Signal` enum (BUY, SELL, NEUTRAL)
+- [x] Add type hints and docstrings following Google style
+- [x] Add unit tests for all models in `tests/unit/core/models/test_trade.py`
 
 ## 🏗️ Technical Implementation
 

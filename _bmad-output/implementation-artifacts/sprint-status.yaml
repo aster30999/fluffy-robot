@@ -76,7 +76,7 @@ development_status:
   epic-2: in-progress
   2-010-domain-models-price-market-data: review
   2-011-domain-models-balance-portfolio: review
-  2-012-domain-models-trade-decision: ready-for-dev
+  2-012-domain-models-trade-decision: review
   2-013-price-fetcher-service: backlog
   2-014-balance-tracker-service: backlog
   2-015-trade-executor-service: backlog
@@ -265,8 +265,8 @@ metrics:
   epics_done: 0
   
   stories_backlog: 26
-  stories_ready_for_dev: 1
-  stories_in_progress: 0
+  stories_ready_for_dev: 0
+  stories_in_progress: 1
   stories_review: 2
   stories_done: 6
   
