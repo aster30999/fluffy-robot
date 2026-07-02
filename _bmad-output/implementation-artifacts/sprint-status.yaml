@@ -75,7 +75,7 @@ development_status:
   # ============================================================================
   epic-2: in-progress
   2-010-domain-models-price-market-data: review
-  2-011-domain-models-balance-portfolio: backlog
+  2-011-domain-models-balance-portfolio: ready-for-dev
   2-012-domain-models-trade-decision: backlog
   2-013-price-fetcher-service: backlog
   2-014-balance-tracker-service: backlog
@@ -264,23 +264,25 @@ metrics:
   epics_in_progress: 2
   epics_done: 0
   
-  stories_backlog: 28
-  stories_ready_for_dev: 0
+  stories_backlog: 27
+  stories_ready_for_dev: 1
   stories_in_progress: 0
   stories_review: 1
   stories_done: 6
   
-  completion_percentage: 19.44
-  mvp_completion_percentage: 22.58
+  completion_percentage: 20.56
+  mvp_completion_percentage: 24.19
 
 # ============================================================================
 # NOTES
 # ============================================================================
-# - 36 total stories: 6 done, 0 ready-for-dev, 1 in review, 28 backlog, 1 in-progress
+# - 36 total stories: 6 done, 1 ready-for-dev, 1 in review, 27 backlog
 # - EPIC 0 (DevOps) and EPIC 1 (Infrastructure) are done
-# - EPIC 2 (Core Trading Engine) is now in-progress
+# - EPIC 2 (Core Trading Engine) is now in-progress with 2 stories
 # - Story 2-010 (Domain Models - Price & Market Data) is in review
+# - Story 2-011 (Domain Models - Balance & Portfolio) is ready-for-dev
 # - 53 unit tests created and passing for US-010
 # - Full regression test suite passes (102 tests)
+# - Use 'bmad-dev-story' to implement 2-011-domain-models-balance-portfolio
 # - Use 'code-review' to review story 2-010-domain-models-price-market-data
 # - Sprint planning recommendations above are based on dependencies and estimates
