@@ -116,7 +116,7 @@ Structure can be verified by:
 find src/ -name "__init__.py" | wc -l  # Should be 12+
 
 # Verify Python imports work
-python -c "from src.core import *; from src.application import *; from src.interfaces import *"
+python -c "from src.core import *; from src.application import *; from src.infrastructure import *"
 ```
 
 ## 📊 Success Metrics

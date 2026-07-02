@@ -165,7 +165,7 @@ SolanaError (base)
 ```python
 from unittest.mock import AsyncMock, patch
 from httpx import Response
-from src.interfaces.solana.client import SolanaClient
+from src.infrastructure.solana.client import SolanaClient
 
 # Mock successful balance query
 with patch.object(client, '_http_request', new_callable=AsyncMock) as mock:

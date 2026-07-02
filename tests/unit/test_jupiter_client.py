@@ -35,7 +35,7 @@ def create_mock_response(status_code: int, json_data: dict = None, headers: dict
     return response
 
 
-from src.interfaces.jupiter.client import (
+from src.infrastructure.jupiter.client import (
     JupiterClient,
     JupiterError,
     JupiterQuoteError,

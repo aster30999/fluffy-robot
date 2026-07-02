@@ -44,7 +44,7 @@ except ImportError:
     PublicKey = MagicMock()
     Transaction = MagicMock()
 
-from src.interfaces.solana.client import (
+from src.infrastructure.solana.client import (
     SolanaClient,
     SolanaError,
     SolanaConnectionError,

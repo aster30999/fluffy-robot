@@ -113,7 +113,7 @@ JupiterError (base)
 ```python
 from unittest.mock import AsyncMock, patch
 from httpx import Response
-from src.interfaces.jupiter.client import JupiterClient
+from src.infrastructure.jupiter.client import JupiterClient
 
 # Mock successful quote
 with patch.object(client, '_request', new_callable=AsyncMock) as mock:
