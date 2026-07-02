@@ -76,7 +76,7 @@ development_status:
   epic-2: in-progress
   2-010-domain-models-price-market-data: review
   2-011-domain-models-balance-portfolio: review
-  2-012-domain-models-trade-decision: backlog
+  2-012-domain-models-trade-decision: ready-for-dev
   2-013-price-fetcher-service: backlog
   2-014-balance-tracker-service: backlog
   2-015-trade-executor-service: backlog
@@ -264,25 +264,26 @@ metrics:
   epics_in_progress: 2
   epics_done: 0
   
-  stories_backlog: 27
-  stories_ready_for_dev: 0
+  stories_backlog: 26
+  stories_ready_for_dev: 1
   stories_in_progress: 0
   stories_review: 2
   stories_done: 6
   
-  completion_percentage: 22.22
-  mvp_completion_percentage: 27.42
+  completion_percentage: 23.89
+  mvp_completion_percentage: 30.65
 
 # ============================================================================
 # NOTES
 # ============================================================================
-# - 36 total stories: 6 done, 0 ready-for-dev, 2 in review, 27 backlog
+# - 36 total stories: 6 done, 1 ready-for-dev, 2 in review, 26 backlog
 # - EPIC 0 (DevOps) and EPIC 1 (Infrastructure) are done
-# - EPIC 2 (Core Trading Engine) is now in-progress with 2 stories
+# - EPIC 2 (Core Trading Engine) is now in-progress with 3 stories
 # - Story 2-010 (Domain Models - Price & Market Data) is in review (53 tests)
 # - Story 2-011 (Domain Models - Balance & Portfolio) is in review (58 tests)
+# - Story 2-012 (Domain Models - Trade & Decision) is ready-for-dev
 # - Total: 111 new tests for EPIC 2, 160 tests project-wide
 # - Full regression test suite passes (160 tests, 2 skipped)
+# - Use 'bmad-dev-story' to implement 2-012-domain-models-trade-decision
 # - Use 'code-review' to review stories 2-010 and 2-011
-# - Next: Create and dev US-012 (Domain Models - Trade & Decision)
 # - Sprint planning recommendations above are based on dependencies and estimates
