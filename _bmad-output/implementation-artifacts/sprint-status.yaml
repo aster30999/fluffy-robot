@@ -55,7 +55,7 @@ development_status:
   # ============================================================================
   epic-0: in-progress
   0-005-ci-cd-pipeline-setup: done
-  0-006-docker-setup: in-progress
+  0-006-docker-setup: done
   epic-0-retrospective: optional
 
   # ============================================================================
@@ -266,12 +266,12 @@ metrics:
   
   stories_backlog: 34
   stories_ready_for_dev: 0
-  stories_in_progress: 1
+  stories_in_progress: 0
   stories_review: 0
-  stories_done: 1
+  stories_done: 2
   
-  completion_percentage: 2.78
-  mvp_completion_percentage: 3.23
+  completion_percentage: 5.56
+  mvp_completion_percentage: 6.45
 
 # ============================================================================
 # NOTES
