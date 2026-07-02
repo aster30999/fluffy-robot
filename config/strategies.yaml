@@ -1,0 +1,98 @@
+# Trading Strategies Configuration
+
+# Strategy configurations
+strategies:
+  # Mean Reversion Strategy
+  mean_reversion:
+    enabled: true
+    description: "Buy when price is below mean, sell when above"
+    
+    # Strategy-specific parameters
+    lookback_period: 20  # candles
+    deviation_threshold: 2.0  # standard deviations
+    mean_type: "SMA"  # SMA, EMA
+    
+    # Risk settings
+    max_trade_amount: 0.1  # SOL
+    stop_loss: 0.05  # 5%
+    take_profit: 0.10  # 10%
+    
+    # Position sizing
+    position_sizing: "fixed"  # fixed, percentage
+    position_size: 0.01  # SOL or percentage
+    
+    # Cooldown between trades (seconds)
+    cooldown: 300
+
+  # Momentum Strategy
+  momentum:
+    enabled: true
+    description: "Buy when momentum is positive, sell when negative"
+    
+    # Strategy-specific parameters
+    momentum_period: 14
+    momentum_threshold: 0.02  # 2% momentum
+    
+    # Risk settings
+    max_trade_amount: 0.1  # SOL
+    stop_loss: 0.05  # 5%
+    take_profit: 0.10  # 10%
+    
+    # Position sizing
+    position_sizing: "fixed"
+    position_size: 0.01  # SOL
+    
+    # Cooldown
+    cooldown: 300
+
+  # Breakout Strategy (example, disabled by default)
+  breakout:
+    enabled: false
+    description: "Buy on support breakout, sell on resistance breakout"
+    
+    lookback_period: 20
+    breakout_multiplier: 1.5
+    
+    max_trade_amount: 0.05
+    stop_loss: 0.03
+    take_profit: 0.08
+    
+    cooldown: 600
+
+  # Trend Following Strategy (example, disabled by default)
+  trend_following:
+    enabled: false
+    description: "Follow the trend using moving averages"
+    
+    fast_ma: 10
+    slow_ma: 50
+    
+    max_trade_amount: 0.05
+    stop_loss: 0.04
+    take_profit: 0.12
+    
+    cooldown: 300
+
+# Strategy selection
+strategy_selection:
+  # Which strategies to run
+  active_strategies:
+    - mean_reversion
+    - momentum
+  
+  # Strategy weights for signal aggregation
+  strategy_weights:
+    mean_reversion: 1.0
+    momentum: 1.0
+    breakout: 0.8
+    trend_following: 0.8
+  
+  # Maximum strategies to run concurrently
+  max_concurrent: 2
+
+# Backtesting settings (for future use)
+backtesting:
+  enabled: false
+  start_date: "2024-01-01"
+  end_date: "2024-12-31"
+  initial_balance: 1.0  # SOL

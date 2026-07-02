@@ -1,0 +1,36 @@
+# Main Configuration
+# Default settings that apply to all environments
+
+# Trading settings
+trading:
+  interval: 60  # seconds
+  default_swap_amount: 0.01  # SOL
+  max_portfolio_risk: 0.01  # 1%
+  slippage_tolerance: 0.01  # 1%
+  
+# Token pairs to trade (comma-separated or list)
+trading_pairs:
+  - SOL-USDC
+  # - SOL-USDT
+  # - BONK-USDC
+
+# Risk management
+risk_management:
+  stop_loss_percentage: 0.05  # 5%
+  take_profit_percentage: 0.10  # 10%
+  max_open_trades: 5
+
+# Logging
+logging:
+  level: INFO
+  format: text
+
+# Database
+database:
+  type: sqlite
+  path: ./data/trading_bot.db
+
+# Monitoring
+monitoring:
+  enabled: false
+  port: 9090

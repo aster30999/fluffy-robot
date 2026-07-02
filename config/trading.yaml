@@ -1,0 +1,35 @@
+# Trading Configuration
+# Trading-specific settings
+
+# Price fetchers configuration
+price_fetchers:
+  jupiter:
+    enabled: true
+    timeout: 30  # seconds
+    retries: 3
+  
+  # Alternative price sources (can be added later)
+  # coingecko:
+  #   enabled: false
+  #   api_key: ""
+  #   timeout: 10
+
+# Balance tracking
+balance_tracking:
+  update_interval: 60  # seconds
+  cache_ttl: 300  # seconds
+
+# Trade execution
+trade_execution:
+  max_retries: 3
+  retry_delay: 2  # seconds
+  confirm_timeout: 60  # seconds
+
+# Multi-pair trading
+multi_pair:
+  enabled: true
+  max_concurrent_trades: 3
+  pair_timeout: 120  # seconds per pair
+
+# Dry run mode (test without real trades)
+dry_run: false

@@ -1,0 +1,84 @@
+# Risk Management Configuration
+
+# Global risk settings
+global:
+  max_portfolio_loss: 0.20  # 20% max loss per day
+  max_drawdown: 0.30  # 30% max drawdown from peak
+  max_daily_trades: 20
+  max_daily_volume: 10.0  # SOL
+
+# Position sizing
+position_sizing:
+  method: "risk_based"  # risk_based, fixed, percentage
+  
+  # For risk_based method
+  risk_per_trade: 0.01  # 1% of portfolio
+  
+  # For fixed method
+  fixed_amount: 0.1  # SOL
+  
+  # For percentage method
+  portfolio_percentage: 0.10  # 10% of portfolio
+
+# Stop Loss
+stop_loss:
+  enabled: true
+  default_percentage: 0.05  # 5%
+  trailing: false
+  trailing_distance: 0.02  # 2%
+  
+  # Per-token overrides
+  overrides:
+    SOL: 0.03  # 3% for SOL
+    BTC: 0.05  # 5% for BTC
+
+# Take Profit
+take_profit:
+  enabled: true
+  default_percentage: 0.10  # 10%
+  multi_level:
+    - level: 1
+      percentage: 0.05  # Take profit at 5%
+      amount: 0.5  # Take profit 50% of position
+    - level: 2
+      percentage: 0.10  # Take profit at 10%
+      amount: 0.3  # Take profit 30% of position
+    - level: 3
+      percentage: 0.15  # Take profit at 15%
+      amount: 0.2  # Take profit 20% of position
+
+# Leverage (if supported in future)
+leverage:
+  enabled: false
+  max_leverage: 2.0
+  liquidation_threshold: 0.10  # 10% from liquidation
+
+# Margin settings (if supported in future)
+margin:
+  enabled: false
+  maintenance_margin: 0.05  # 5%
+  initial_margin: 0.10  # 10%
+
+# Circuit breakers
+circuit_breakers:
+  enabled: true
+  daily_loss_limit: 0.15  # 15% daily loss limit
+  consecutive_losses_limit: 5  # Stop after 5 consecutive losses
+  volatility_threshold: 0.5  # 50% price movement
+
+# Order validation
+order_validation:
+  min_order_size: 0.001  # SOL
+  max_order_size: 1.0  # SOL
+  price_deviation_threshold: 0.05  # 5% from market price
+
+# Blacklist
+blacklist:
+  tokens: []  # Token addresses to blacklist
+  pairs: []  # Trading pairs to blacklist
+
+# Whitelist (only trade these if not empty)
+whitelist:
+  enabled: false
+  tokens: []
+  pairs: []

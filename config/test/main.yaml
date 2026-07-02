@@ -1,0 +1,29 @@
+# Test Environment Configuration
+# Overrides for testing environment
+
+# Trading settings - moderate intervals
+trading:
+  interval: 30  # 30 seconds
+  default_swap_amount: 0.001
+  
+# Risk management
+risk_management:
+  stop_loss_percentage: 0.05
+  take_profit_percentage: 0.10
+
+# Logging
+logging:
+  level: INFO
+  format: text
+
+# Database
+database:
+  type: sqlite
+  path: ./data/test/trading_bot.db
+
+# Monitoring
+monitoring:
+  enabled: false
+
+# Dry run - enabled in test
+dry_run: true

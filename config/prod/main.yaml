@@ -1,0 +1,30 @@
+# Production Environment Configuration
+# Overrides for production environment
+
+# Trading settings - normal intervals
+trading:
+  interval: 60  # 1 minute
+  default_swap_amount: 0.01
+  
+# Risk management - conservative
+risk_management:
+  stop_loss_percentage: 0.03  # 3% stop loss
+  take_profit_percentage: 0.08  # 8% take profit
+
+# Logging - production level
+logging:
+  level: INFO
+  format: json  # JSON for structured logging
+
+# Database - production SQLite or PostgreSQL
+database:
+  type: sqlite
+  path: ./data/prod/trading_bot.db
+
+# Monitoring - enabled in production
+monitoring:
+  enabled: true
+  port: 9090
+
+# Dry run - DISABLED in production (real trades)
+dry_run: false

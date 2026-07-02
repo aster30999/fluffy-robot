@@ -1,0 +1,73 @@
+# Technical Indicators Configuration
+# Settings for all indicators
+
+# Default indicator settings
+defaults:
+  period: 14
+  enabled: true
+  weight: 1.0
+
+# Individual indicator configurations
+indicators:
+  # RSI - Relative Strength Index
+  RSI:
+    enabled: true
+    period: 14
+    overbought: 70
+    oversold: 30
+    weight: 1.0
+  
+  # MACD - Moving Average Convergence Divergence
+  MACD:
+    enabled: true
+    fast_period: 12
+    slow_period: 26
+    signal_period: 9
+    weight: 1.0
+  
+  # Volume Analysis
+  Volume:
+    enabled: true
+    period: 14
+    volume_spike_threshold: 2.0  # 2x average volume
+    weight: 0.8
+  
+  # Support/Resistance
+  SupportResistance:
+    enabled: true
+    lookback_period: 20  # candles
+    sensitivity: 0.95  # 0-1, higher = more sensitive
+    weight: 1.0
+  
+  # Ichimoku Cloud
+  Ichimoku:
+    enabled: false  # Disabled by default
+    tenkan_sen: 9
+    kijun_sen: 26
+    senkou_span_b: 52
+    weight: 1.0
+  
+  # Moving Averages
+  SMA:
+    enabled: false
+    periods: [20, 50, 200]
+    weight: 0.8
+  
+  # Bollinger Bands
+  BollingerBands:
+    enabled: false
+    period: 20
+    std_dev: 2.0
+    weight: 0.8
+
+# Signal aggregation
+signal_aggregation:
+  method: weighted  # weighted, majority, all
+  buy_threshold: 0.7  # 70% of indicators must signal BUY
+  sell_threshold: 0.7  # 70% of indicators must signal SELL
+
+# Price data requirements
+price_data:
+  candle_period: "1m"  # 1m, 5m, 15m, 1h, 4h, 1d
+  max_candles: 1000  # Maximum candles to fetch
+  required_history: "1h"  # Minimum history required

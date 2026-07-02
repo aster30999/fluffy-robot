@@ -1,0 +1,30 @@
+# Dev Environment Configuration
+# Overrides for development environment
+
+# Trading settings - shorter intervals for testing
+trading:
+  interval: 10  # 10 seconds for faster testing
+  default_swap_amount: 0.001  # Smaller amounts for testing
+  
+# Risk management - more lenient for dev
+risk_management:
+  stop_loss_percentage: 0.10  # 10% stop loss
+  take_profit_percentage: 0.20  # 20% take profit
+
+# Logging - more verbose in dev
+logging:
+  level: DEBUG
+  format: text
+
+# Database - local SQLite for dev
+database:
+  type: sqlite
+  path: ./data/dev/trading_bot.db
+
+# Monitoring - enabled for local development
+monitoring:
+  enabled: true
+  port: 9090
+
+# Dry run - enabled by default in dev
+dry_run: true
