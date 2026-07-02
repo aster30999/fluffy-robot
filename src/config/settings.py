@@ -6,9 +6,20 @@ Uses environment variables with sensible defaults.
 """
 
 from typing import List, Optional, Dict, Any
-from pydantic import BaseSettings, validator, Field
-from pydantic.types import SecretStr
-import logging
+try:
+    # Pydantic v2
+    from pydantic_settings import BaseSettings
+    from pydantic import validator, Field, SecretStr
+    import logging
+    PYDANTIC_V2 = True
+except ImportError:
+    try:
+        # Pydantic v1
+        from pydantic import BaseSettings, validator, Field, SecretStr
+        import logging
+        PYDANTIC_V2 = False
+    except ImportError:
+        raise ImportError("Neither pydantic v1 nor v2 with pydantic-settings is installed")
 
 
 class SolanaSettings(BaseSettings):

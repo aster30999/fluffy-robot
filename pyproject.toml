@@ -10,7 +10,7 @@ readme = "README.md"
 license = {text = "MIT"}
 requires-python = "==3.12.3"
 authors = [
-    {name = "asteroid", email = "user@example.com"}
+    {name = "asteroid", email = "vibe@prior.ovh"}
 ]
 keywords = ["solana", "trading", "bot", "cryptocurrency", "automated"]
 classifiers = [
@@ -32,6 +32,7 @@ dependencies = [
     "base58>=2.1.0",
     "python-dotenv>=1.0.0",
     "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
     "numpy>=1.24.0",
     "pandas>=2.0.0",
 ]

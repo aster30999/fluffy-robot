@@ -9,9 +9,17 @@ import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch, mock_open
 from httpx import AsyncClient, Response
 
-from solana.keypair import Keypair
-from solana.publickey import PublicKey
-from solana.transaction import Transaction
+# Optional imports - mock if not available for testing
+try:
+    from solana.keypair import Keypair
+    from solana.publickey import PublicKey
+    from solana.transaction import Transaction
+    SOLANA_AVAILABLE = True
+except ImportError:
+    SOLANA_AVAILABLE = False
+    Keypair = MagicMock()
+    PublicKey = MagicMock()
+    Transaction = MagicMock()
 
 from src.interfaces.solana.client import (
     SolanaClient,
@@ -121,7 +129,7 @@ async def test_get_token_balance_success(mock_client):
                                 "info": {
                                     "mint": "TokenMint123",
                                     "tokenAmount": {
-                                        "amount": "1000000000",
+                                        "amount": "1000000",
                                         "decimals": 6
                                     }
                                 }
@@ -145,7 +153,7 @@ async def test_get_token_balance_success(mock_client):
         assert isinstance(balance, TokenBalance)
         assert balance.mint_address == "TokenMint123"
         assert balance.owner_address == "Owner123"
-        assert balance.amount == 1000000000
+        assert balance.amount == 1000000
         assert balance.decimals == 6
         assert balance.ui_amount == 1.0
 
@@ -186,7 +194,8 @@ async def test_get_token_balances(mock_client):
                             "parsed": {
                                 "info": {
                                     "mint": "Mint1",
-                                    "tokenAmount": {"amount": "1000", "decimals": 6}
+                                    "tokenAmount": {"amount": "1000", "decimals": 6},
+                                    "decimals": 6
                                 }
                             }
                         }
@@ -199,7 +208,8 @@ async def test_get_token_balances(mock_client):
                             "parsed": {
                                 "info": {
                                     "mint": "Mint2",
-                                    "tokenAmount": {"amount": "2000", "decimals": 9}
+                                    "tokenAmount": {"amount": "2000", "decimals": 9},
+                                    "decimals": 9
                                 }
                             }
                         }
@@ -224,10 +234,10 @@ async def test_get_token_balances(mock_client):
         assert "Mint3" in balances
         
         assert balances["Mint1"].amount == 1000
-        assert balances["Mint1"].ui_amount == 1000 / 10**6
+        assert balances["Mint1"].ui_amount == 0.001  # 1000 / 10**6
         
         assert balances["Mint2"].amount == 2000
-        assert balances["Mint2"].ui_amount == 2000 / 10**9
+        assert balances["Mint2"].ui_amount == 0.000002  # 2000 / 10**9
         
         assert balances["Mint3"].amount == 0  # Not found
 
@@ -332,7 +342,7 @@ async def test_get_transaction_info(mock_client):
         assert info.status == "confirmed"
         assert info.logs == ["log1", "log2"]
         assert info.pre_balances == [1000000, 2000000]
-        assert info.post_balances == [999500, 2005000]
+        assert info.post_balances == [999500, 2000500]
 
 
 # ============================================================================

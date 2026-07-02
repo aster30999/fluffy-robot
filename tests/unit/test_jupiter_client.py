@@ -16,6 +16,8 @@ from src.interfaces.jupiter.client import (
     JupiterOrderError,
     JupiterExecuteError,
     JupiterRateLimitError,
+    JupiterInvalidResponseError,
+    JupiterTimeoutError,
     QuoteResponse,
     OrderResponse,
     ExecuteResponse,

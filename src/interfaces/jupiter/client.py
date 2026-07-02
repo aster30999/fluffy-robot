@@ -65,7 +65,7 @@ class QuoteResponse:
     price_impact: float
     fees: Dict[str, float]
     route: List[Dict[str, Any]]
-    raw: Dict[str, Any]  # Full response
+    raw: Dict[str, Any] = field(default_factory=dict)  # Full response
 
 
 @dataclass
@@ -74,14 +74,14 @@ class OrderResponse:
     swap_transaction: str  # Base64 encoded transaction
     setup_transaction: Optional[str] = None
     cleanup_transaction: Optional[str] = None
-    raw: Dict[str, Any]  # Full response
+    raw: Dict[str, Any] = field(default_factory=dict)  # Full response
 
 
 @dataclass
 class ExecuteResponse:
     """Response from /execute endpoint."""
     transaction_signature: str
-    raw: Dict[str, Any]  # Full response
+    raw: Dict[str, Any] = field(default_factory=dict)  # Full response
 
 
 @dataclass
