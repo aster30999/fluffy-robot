@@ -27,8 +27,7 @@ class TestBasic:
 
     def test_requirements_available(self):
         """Test that core dependencies are available."""
-        import solana
-        import soldiers
+        # Test only dependencies that don't have strict Python version requirements
         import httpx
         import base58
         import dotenv
