@@ -26,10 +26,20 @@ from .price import (
     TokenPair,
 )
 
+# Balance and Portfolio Models (US-011)
+from .balance import (
+    Balance,
+    Portfolio,
+)
+
 __all__ = [
+    # US-010 Models
     "Price",
     "Candle",
     "MarketData",
     "Token",
     "TokenPair",
+    # US-011 Models
+    "Balance",
+    "Portfolio",
 ]
