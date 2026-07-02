@@ -1,0 +1,283 @@
+# generated: 2026-06-30
+# last_updated: 2026-06-30
+# project: Solana Trading Bot
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: /home/asteroid/fluffy-robot/_bmad-output/implementation-artifacts
+# epics_location: /home/asteroid/fluffy-robot/_bmad-output/planning-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog -> in-progress: Automatically when first story is created (via create-story)
+#   - in-progress -> done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# Action Item Status:
+#   - open: Committed during a retrospective, not yet addressed
+#   - in-progress: Actively being worked on
+#   - done: Completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - Developer typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+# - Retrospective appends its action items to action_items; sprint-status surfaces open ones
+
+generated: 2026-06-30
+last_updated: 2026-06-30
+project: Solana Trading Bot
+project_key: NOKEY
+tracking_system: file-system
+story_location: /home/asteroid/fluffy-robot/_bmad-output/implementation-artifacts
+
+development_status:
+  # ============================================================================
+  # EPIC 0: DevOps Infrastructure (P0 - Must Have)
+  # Goal: Set up CI/CD pipeline and Docker container for reproducible development
+  # ============================================================================
+  epic-0: in-progress
+  0-005-ci-cd-pipeline-setup: in-progress
+  0-006-docker-setup: backlog
+  epic-0-retrospective: optional
+
+  # ============================================================================
+  # EPIC 1: Project Setup & Infrastructure (P0 - Must Have)
+  # Goal: Establish the project foundation with proper structure, dependencies, and CI/CD
+  # ============================================================================
+  epic-1: backlog
+  1-001-project-structure-setup: backlog
+  1-002-environment-configuration: backlog
+  1-003-infrastructure-jupiter-client: backlog
+  1-004-infrastructure-solana-client: backlog
+  epic-1-retrospective: optional
+
+  # ============================================================================
+  # EPIC 2: Core Trading Engine (P0 - Must Have)
+  # Goal: Implement the core components that power the trading bot
+  # ============================================================================
+  epic-2: backlog
+  2-010-domain-models-price-market-data: backlog
+  2-011-domain-models-balance-portfolio: backlog
+  2-012-domain-models-trade-decision: backlog
+  2-013-price-fetcher-service: backlog
+  2-014-balance-tracker-service: backlog
+  2-015-trade-executor-service: backlog
+  2-016-wallet-management: backlog
+  2-017-main-trading-loop-with-multi-pair-support: backlog
+  epic-2-retrospective: optional
+
+  # ============================================================================
+  # EPIC 3: Technical Indicators (P0 - Must Have)
+  # Goal: Implement technical indicators for market analysis
+  # ============================================================================
+  epic-3: backlog
+  3-020-indicator-framework: backlog
+  3-021-rsi-indicator: backlog
+  3-022-macd-indicator: backlog
+  3-023-volume-indicator: backlog
+  3-024-support-resistance-indicator: backlog
+  3-025-indicator-service: backlog
+  epic-3-retrospective: optional
+
+  # ============================================================================
+  # EPIC 4: Decision Engine & Strategies (P0 - Must Have)
+  # Goal: Implement the decision-making logic and trading strategies
+  # ============================================================================
+  epic-4: backlog
+  4-030-decision-engine: backlog
+  4-031-strategy-framework: backlog
+  4-032-mean-reversion-strategy: backlog
+  4-033-momentum-strategy: backlog
+  4-034-strategy-configuration: backlog
+  epic-4-retrospective: optional
+
+  # ============================================================================
+  # EPIC 5: Risk Management (P0 - Must Have)
+  # Goal: Implement risk management features to protect the portfolio
+  # ============================================================================
+  epic-5: backlog
+  5-040-position-sizing: backlog
+  5-041-stop-loss-management: backlog
+  5-042-take-profit-management: backlog
+  5-043-risk-management-integration: backlog
+  epic-5-retrospective: optional
+
+  # ============================================================================
+  # EPIC 6: Monitoring & Analytics (P1 - Should Have)
+  # Goal: Implement monitoring and analytics for performance tracking
+  # ============================================================================
+  epic-6: backlog
+  6-050-trade-history-logging: backlog
+  6-051-performance-metrics: backlog
+  6-052-structured-logging: backlog
+  6-053-session-summary-report: backlog
+  epic-6-retrospective: optional
+
+  # ============================================================================
+  # EPIC 7: Testing & Validation (P0 - Must Have)
+  # Goal: Ensure the bot is thoroughly tested and validated before real trading
+  # ============================================================================
+  epic-7: backlog
+  7-060-unit-tests-for-core-components: backlog
+  7-061-integration-tests: backlog
+  7-062-dry-run-validation: backlog
+  epic-7-retrospective: optional
+
+  # ============================================================================
+  # EPIC 8: Documentation & Release (P1 - Should Have)
+  # Goal: Provide comprehensive documentation and prepare for release
+  # ============================================================================
+  epic-8: backlog
+  8-070-developer-documentation: backlog
+  8-071-user-documentation: backlog
+  8-072-cli-documentation: backlog
+  8-073-release-preparation: backlog
+  epic-8-retrospective: optional
+
+# ============================================================================
+# SPRINT PLANNING: Recommended First Sprint (Sprint 1 - Foundation)
+# ============================================================================
+# Based on dependencies and priorities, here's the recommended order:
+#
+# Sprint 1 (Week 1 - Foundation):
+#   - epic-1 (all 4 stories) - Project Setup & Infrastructure
+#   - epic-2: 2-010, 2-011, 2-012 (Domain Models)
+#   Total: 7 stories, ~26h
+#
+# Sprint 2 (Week 2 - Core Engine):
+#   - epic-2: 2-013, 2-014, 2-016 (Services)
+#   - epic-3: 3-020, 3-021 (Indicator Framework + RSI)
+#   Total: 5 stories, ~24h
+#
+# Sprint 3 (Week 3 - Trading Logic):
+#   - epic-2: 2-015, 2-017 (Trade Executor + Main Loop)
+#   - epic-3: 3-025 (Indicator Service)
+#   - epic-4: 4-030, 4-031, 4-032 (Decision Engine + Strategies)
+#   - epic-5: 5-040, 5-043 (Risk Management)
+#   Total: 7 stories, ~38h
+#
+# Sprint 4 (Week 4 - Polish):
+#   - epic-3: 3-022 (MACD)
+#   - epic-4: 4-033, 4-034 (Momentum + Config)
+#   - epic-5: 5-041, 5-042 (Stop Loss + Take Profit)
+#   - epic-6: all 4 stories (Monitoring)
+#   Total: 7 stories, ~28h
+#
+# Sprint 5 (Week 5 - Testing & Release):
+#   - epic-7: all 3 stories (Testing)
+#   - epic-8: all 4 stories (Documentation)
+#   Total: 7 stories, ~21h
+#
+# MVP Achievement: After Sprint 3 (24 stories, ~122h)
+# V1 Completion: After Sprint 5 (36 stories, ~174h)
+
+# ============================================================================
+# DEPENDENCY GRAPH SUMMARY
+# ============================================================================
+#
+# E0 (2 stories: CI/CD, Docker) -> No deps
+#   │
+#   ├── E1 depends on E0 (optional: Docker useful for E1)
+#   │
+#   ├── E2 depends on E1
+#   │   └── E3 depends on E1
+#   │   └── E4 depends on E2, E3
+#   │   └── E5 depends on E1, E2
+#   │   └── E6 depends on E2
+#   │   └── E7 depends on E1-E5
+#   │
+#   └── E8 depends on all
+#
+# Critical Path (sequential):
+#   E1 -> E2 -> E4 -> E5 -> E7 = ~118h
+#
+# Optimized (parallel):
+#   E1 + (E2 start) + (E3 start) -> E4 + E5 -> E6 + E7 -> E8 = ~4-5 weeks
+
+# ============================================================================
+# CAPACITY PLANNING
+# ============================================================================
+#
+# Assuming 40h/week capacity:
+# - Sprint 1: 28h (70% capacity) - DevOps + Foundation (E0 + E1)
+# - Sprint 2: 24h (60% capacity) - Core Engine
+# - Sprint 3: 38h (95% capacity) - Trading Logic
+# - Sprint 4: 28h (70% capacity) - Polish
+# - Sprint 5: 21h (53% capacity) - Testing & Release
+#
+# Total: ~174h / 5 weeks = ~35h/week average
+
+# ============================================================================
+# RISK ASSESSMENT
+# ============================================================================
+#
+# High Risk:
+# - Jupiter API compatibility with Devnet tokens (OQ-002)
+# - Transaction signing and execution (US-015, US-017)
+#
+# Medium Risk:
+# - Multi-pair concurrent processing (US-017)
+# - Rate limiting management (US-003)
+#
+# Low Risk:
+# - Domain models (E2 stories 010-012)
+# - Configuration system (US-002)
+#
+# Mitigation:
+# - Start with single pair, then add multi-pair support
+# - Extensive dry-run testing before Mainnet
+# - Comprehensive unit tests for all components
+
+# ============================================================================
+# METRICS
+# ============================================================================
+
+metrics:
+  total_epics: 9
+  total_stories: 36
+  mvp_stories: 31
+  p0_stories: 31
+  p1_stories: 5
+  total_estimate_hours: 174
+  mvp_estimate_hours: 147
+  
+  # Status counts (auto-updated)
+  epics_backlog: 8
+  epics_in_progress: 1
+  epics_done: 0
+  
+  stories_backlog: 35
+  stories_ready_for_dev: 0
+  stories_in_progress: 1
+  stories_review: 0
+  stories_done: 0
+  
+  completion_percentage: 2.78
+  mvp_completion_percentage: 3.23
+
+# ============================================================================
+# NOTES
+# ============================================================================
+# - All stories are currently in 'backlog' status
+# - No story files have been created yet in implementation-artifacts/
+# - Re-run this workflow after creating story files to update statuses
+# - Use 'bmad-dev-story' to create and work on individual stories
+# - Sprint planning recommendations above are based on dependencies and estimates

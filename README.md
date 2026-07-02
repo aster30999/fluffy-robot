@@ -1,12 +1,21 @@
-# Solana Devnet Swap Test
+# Solana Trading Bot
 
-A minimal Python script to test SOL to USDC swaps on Solana Devnet using **Jupiter API V6** (stable).
+A personal Python trading bot for automated Solana trading with technical indicators, risk management, and multi-pair support.
+
+[![Python Test Suite](https://github.com/asteroid/solana-trading-bot/actions/workflows/test.yml/badge.svg)](https://github.com/asteroid/solana-trading-bot/actions/workflows/test.yml)
+[![Code Coverage](https://codecov.io/gh/asteroid/solana-trading-bot/branch/main/graph/badge.svg)](https://codecov.io/gh/asteroid/solana-trading-bot)
+
+**Note:** This project is currently in active development with a migration from a simple swap test script to a full-featured trading bot.
+
+## Legacy: Solana Devnet Swap Test
+
+This repository contains a legacy minimal Python script to test SOL to USDC swaps on Solana Devnet using **Jupiter API V2** (stable).
 
 ## Features
 
 - ✅ Uses predefined test wallet from `~/wallet-1-keypair.json`
 - ✅ Requests Devnet SOL via airdrop
-- ✅ Performs SOL → USDC swap using **Jupiter API V6** (direct HTTP calls)
+- ✅ Performs SOL → USDT swap using **Jupiter API V2 Order & Execute** (direct HTTP calls)
 - ✅ Displays balances before/after swap
 - ✅ Shows transaction details
 
@@ -49,22 +58,22 @@ Wallet address: 6bXqg6oKUNtPbj84RkaCMvvfJFHiUiNVSwN9AYt65MaX
 
 Checking initial balances...
 SOL balance before swap: 5.000000 SOL
-USDC balance before swap: 0.000000 USDC
+USDT balance before swap: 0.000000 USDT
 
-Swapping 0.1 SOL to USDC...
-   Getting quote from Jupiter API...
-   Getting swap transaction...
-   Signing and sending transaction...
+Swapping 0.1 SOL to USDT...
+   Getting order from Jupiter API V2...
+   Decoding and signing transaction...
+   Executing transaction via Jupiter...
 ✅ Swap successful!
    Transaction: https://explorer.solana.com/tx/...?cluster=devnet
 
 Checking balances after swap...
 SOL balance after swap: 4.900000 SOL
-USDC balance after swap: X.XXXXXX USDC
+USDT balance after swap: X.XXXXXX USDT
 
 === Summary ===
 SOL spent: 0.100000 SOL
-USDC received: X.XXXXXX USDC
+USDT received: X.XXXXXX USDT
 Transaction: https://explorer.solana.com/tx/...?cluster=devnet
 
 Test completed!
@@ -76,7 +85,8 @@ Test completed!
 
 | Variable | Description | Required | Default |
 |----------|-------------|----------|---------|
-| `SOLANA_RPC_URL` | Solana RPC endpoint | No | Devnet |
+| `SOLANA_RPC_URL` | Solana RPC endpoint | No | `https://api.devnet.solana.com` |
+| `JUPITER_API_KEY` | Jupiter API key for higher rate limits | No | None (rate limited) |
 
 ### Test Wallet
 
@@ -94,20 +104,20 @@ Wallet address: `6bXqg6oKUNtPbj84RkaCMvvfJFHiUiNVSwN9AYt65MaX`
 
 ## Technology Stack
 
-This project uses **Jupiter API V6** directly via HTTP:
+This project uses **Jupiter API V2** directly via HTTP with the `/order` and `/execute` endpoints:
 
-- 🔗 **Jupiter API V6**: [Documentation](https://dev.jup.ag/api-reference/swap/quote)
+- 🔗 **Jupiter API V2**: [Documentation](https://dev.jup.ag/swap/order-and-execute)
 - 📚 **Solana Python SDK**: [solana-py](https://github.com/michaelhly/solana-py)
 
-### Why Jupiter API V6?
+### Why Jupiter API V2 Order & Execute?
 
 | Solution | Type | Maintenance | Complexity | Stability |
 | --- | --- | --- | --- | --- |
-| Jupiter API V6 | API HTTP | ✅ DevRel | ⭐⭐ | ✅ High |
+| Jupiter API V2 | API HTTP | ✅ DevRel | ⭐⭐ | ✅ High |
 | jup-python-sdk | SDK | ✅ DevRel | ⭐ | ⚠️ Ultra API issues |
 | jupiter-python-sdk | SDK | ⚠️ Community | ⭐⭐ | ❌ Deprecated |
 
-**Jupiter API V6** is the most stable and reliable solution for production use.
+**Jupiter API V2 with Order & Execute** provides the best pricing across all routers (Metis, JupiterZ, Dflow, OKX) with managed transaction landing.
 
 ## Troubleshooting
 
@@ -121,9 +131,10 @@ If the airdrop fails, try:
 ### Swap Fails
 
 1. **Check SOL balance**: Ensure you have at least 0.1 SOL for the swap
-2. **Check USDC mint**: USDC Devnet mint is `4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`
+2. **Check USDT mint**: USDT Devnet mint is `Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB`
 3. **Try smaller amount**: Use 0.01 SOL instead of 0.1 SOL
 4. **Check Jupiter API status**: [Jupiter Status](https://status.jup.ag/)
+5. **API Key**: For production use, get an API key from [Jupiter Portal](https://developers.jup.ag/portal)
 
 ### Common Errors
 

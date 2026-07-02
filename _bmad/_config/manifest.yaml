@@ -1,0 +1,21 @@
+installation:
+  version: 6.9.0
+  installDate: 2026-06-30T06:27:34.144Z
+  lastUpdated: 2026-06-30T06:27:34.144Z
+modules:
+  - name: core
+    version: 6.9.0
+    installDate: 2026-06-30T06:27:34.110Z
+    lastUpdated: 2026-06-30T06:27:34.143Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+  - name: bmm
+    version: 6.9.0
+    installDate: 2026-06-30T06:27:34.092Z
+    lastUpdated: 2026-06-30T06:27:34.144Z
+    source: built-in
+    npmPackage: null
+    repoUrl: null
+ides:
+  - mistral-vibe

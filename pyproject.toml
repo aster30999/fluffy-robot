@@ -1,0 +1,132 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "solana-trading-bot"
+version = "0.1.0"
+description = "Personal Solana Trading Bot with automated strategy execution"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "asteroid", email = "user@example.com"}
+]
+keywords = ["solana", "trading", "bot", "cryptocurrency", "automated"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "solana>=0.40.0",
+    "solders>=0.27.1", 
+    "httpx>=0.28.1",
+    "base58>=2.1.0",
+    "python-dotenv>=1.0.0",
+    "pydantic>=2.0.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.23.0",
+    "black>=23.12.0",
+    "flake8>=6.1.0",
+    "mypy>=1.8.0",
+    "types-python-dateutil>=2.8.0",
+    "codecov>=2.1.13",
+]
+
+[project.urls]
+Homepage = "https://github.com/asteroid/solana-trading-bot"
+Documentation = "https://github.com/asteroid/solana-trading-bot#readme"
+Repository = "https://github.com/asteroid/solana-trading-bot.git"
+Issues = "https://github.com/asteroid/solana-trading-bot/issues"
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short --cov=src --cov-report=term --cov-report=html"
+testpaths = ["tests"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks integration tests that require external dependencies",
+    "devnet: marks tests that use Devnet (require network access)",
+    "unit: marks unit tests that run in isolation",
+]
+
+[tool.coverage.run]
+source = ["src"]
+command_line = "--cov-report=xml --cov-report=html"
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py310", "py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.venv
+    | build
+    | dist
+    | __pycache__
+    | \.mypy_cache
+    | \.pytest_cache
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203, W503"
+exclude = [
+    ".venv",
+    "build",
+    "dist",
+    "__pycache__",
+    ".mypy_cache",
+    ".pytest_cache",
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+strict_optional = true
+warn_redundant_casts = true
+warn_no_return = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = "solana.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "solders.*"
+ignore_missing_imports = true
