@@ -213,7 +213,10 @@ class JupiterClient:
                         await asyncio.sleep(retry_after)
                         continue
                     raise JupiterRateLimitError(f"Rate limit exceeded after {self.max_retries} retries")
-                elif 400 <= response.status_code < 600:
+                elif response.status_code == 400:
+                    # Bad request - invalid response
+                    raise JupiterInvalidResponseError(f"Bad request {response.status_code}: {response.text}")
+                elif 400 < response.status_code < 600:
                     # Other HTTP errors
                     raise JupiterError(f"HTTP error {response.status_code}: {response.text}")
                 
