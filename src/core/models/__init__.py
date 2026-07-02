@@ -11,6 +11,25 @@ Contains:
 - Trade: Trade execution details
 - Decision: Trading decision (BUY, SELL, HOLD)
 - MarketData: Aggregated market information
+- Token: Solana token metadata
+- TokenPair: Trading pair representation
 """
 
 __version__ = "0.1.0"
+
+# Price and Market Data Models (US-010)
+from .price import (
+    Candle,
+    MarketData,
+    Price,
+    Token,
+    TokenPair,
+)
+
+__all__ = [
+    "Price",
+    "Candle",
+    "MarketData",
+    "Token",
+    "TokenPair",
+]

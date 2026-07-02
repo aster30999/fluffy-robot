@@ -42,7 +42,7 @@
 # - Retrospective appends its action items to action_items; sprint-status surfaces open ones
 
 generated: 2026-06-30
-last_updated: 2026-06-30
+last_updated: 2026-07-02
 project: Solana Trading Bot
 project_key: NOKEY
 tracking_system: file-system
@@ -73,8 +73,8 @@ development_status:
   # EPIC 2: Core Trading Engine (P0 - Must Have)
   # Goal: Implement the core components that power the trading bot
   # ============================================================================
-  epic-2: backlog
-  2-010-domain-models-price-market-data: backlog
+  epic-2: in-progress
+  2-010-domain-models-price-market-data: review
   2-011-domain-models-balance-portfolio: backlog
   2-012-domain-models-trade-decision: backlog
   2-013-price-fetcher-service: backlog
@@ -260,24 +260,27 @@ metrics:
   mvp_estimate_hours: 147
   
   # Status counts (auto-updated)
-  epics_backlog: 8
-  epics_in_progress: 1
+  epics_backlog: 7
+  epics_in_progress: 2
   epics_done: 0
   
-  stories_backlog: 30
+  stories_backlog: 28
   stories_ready_for_dev: 0
   stories_in_progress: 0
-  stories_review: 0
+  stories_review: 1
   stories_done: 6
   
-  completion_percentage: 16.67
-  mvp_completion_percentage: 19.35
+  completion_percentage: 19.44
+  mvp_completion_percentage: 22.58
 
 # ============================================================================
 # NOTES
 # ============================================================================
-# - All stories are currently in 'backlog' status
-# - No story files have been created yet in implementation-artifacts/
-# - Re-run this workflow after creating story files to update statuses
-# - Use 'bmad-dev-story' to create and work on individual stories
+# - 36 total stories: 6 done, 0 ready-for-dev, 1 in review, 28 backlog, 1 in-progress
+# - EPIC 0 (DevOps) and EPIC 1 (Infrastructure) are done
+# - EPIC 2 (Core Trading Engine) is now in-progress
+# - Story 2-010 (Domain Models - Price & Market Data) is in review
+# - 53 unit tests created and passing for US-010
+# - Full regression test suite passes (102 tests)
+# - Use 'code-review' to review story 2-010-domain-models-price-market-data
 # - Sprint planning recommendations above are based on dependencies and estimates
