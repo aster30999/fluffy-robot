@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Personal Solana Trading Bot with automated strategy execution"
 readme = "README.md"
 license = {text = "MIT"}
-requires-python = ">=3.10"
+requires-python = "==3.12.3"
 authors = [
     {name = "asteroid", email = "user@example.com"}
 ]
@@ -26,8 +26,8 @@ classifiers = [
 ]
 
 dependencies = [
-    "solana>=0.40.0",
-    "solders>=0.27.1", 
+    "solana==0.40.0",
+    "solders==0.28.0", 
     "httpx>=0.28.1",
     "base58>=2.1.0",
     "python-dotenv>=1.0.0",
@@ -85,7 +85,7 @@ exclude_lines = [
 
 [tool.black]
 line-length = 88
-target-version = ["py310", "py311"]
+target-version = ["py312"]
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -112,7 +112,7 @@ exclude = [
 ]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
