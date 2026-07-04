@@ -144,6 +144,7 @@ class JupiterClient:
         else:
             # Try to get from settings, with fallback to default
             # Use quote-api.jup.ag/v6 for current Jupiter API (official SDK endpoints)
+            # Note: This domain may have DNS issues, consider fallback to api.jup.ag
             try:
                 base_url = getattr(settings, 'jupiter_api_url', 'https://quote-api.jup.ag')
             except (AttributeError, ImportError):
@@ -154,6 +155,10 @@ class JupiterClient:
         # Validate that we have a valid base_url
         if not self.base_url or not self.base_url.strip():
             raise ValueError("base_url cannot be empty")
+        
+        logger.info(f"JupiterClient initialized with base_url={self.base_url}")
+        logger.warning("Note: Jupiter API endpoints may have changed. "
+                      "If you encounter DNS or 404 errors, check for updated API documentation.")
         self.api_key = api_key or (getattr(settings, 'jupiter_api_key', None))
         self.timeout = timeout
         self.max_retries = max_retries
