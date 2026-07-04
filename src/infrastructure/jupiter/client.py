@@ -105,6 +105,7 @@ class JupiterClient:
     """
     
     # Jupiter API V6 endpoints (current stable version)
+    # Jupiter's v6 API is actually at quote-api.jup.ag/v6/
     QUOTE_ENDPOINT = "/v6/quote"
     ORDER_ENDPOINT = "/v6/swap"
     EXECUTE_ENDPOINT = "/v6/swap"
@@ -142,10 +143,11 @@ class JupiterClient:
             self.base_url = base_url.strip().rstrip('/')
         else:
             # Try to get from settings, with fallback to default
+            # Use quote-api.jup.ag/v6 for current Jupiter API (official SDK endpoints)
             try:
-                base_url = getattr(settings, 'jupiter_api_url', 'https://api.jup.ag')
+                base_url = getattr(settings, 'jupiter_api_url', 'https://quote-api.jup.ag')
             except (AttributeError, ImportError):
-                base_url = 'https://api.jup.ag'
+                base_url = 'https://quote-api.jup.ag'
             
             self.base_url = base_url.strip().rstrip('/')
         
