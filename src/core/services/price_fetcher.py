@@ -170,28 +170,49 @@ class PriceFetcher:
             RateLimitError: If rate limited by Jupiter API
         """
         try:
-            # Use JupiterClient.get_quote directly to get raw amounts
-            # Pass a reasonable amount in base units (e.g., 1 token worth)
-            # For SOL (9 decimals): 1 SOL = 10^9 lamports
-            # For USDC (6 decimals): 1 USDC = 10^6 units
-            base_units = 10 ** pair.base.decimals
+            # Use JupiterClient.get_price for simplicity and backward compatibility
+            # get_price internally calls get_quote and calculates the price
+            # This avoids manual decimal conversions and provides a cleaner interface
             
-            quote = await self.jupiter_client.get_quote(
+            # Add overflow protection for high-decimal tokens
+            if pair.base.decimals > 18:
+                self.logger.error(f"Unsupported decimal precision: {pair.base.decimals}")
+                raise PriceFetchError(f"Token decimal precision {pair.base.decimals} exceeds maximum supported (18)")
+            
+            # Use get_price which handles the decimal conversions internally
+            # Pass 1.0 as amount to get price per unit
+            price_value = await self.jupiter_client.get_price(
                 input_token=pair.base.mint,
                 output_token=pair.quote.mint,
-                amount=base_units,  # 1 token worth in base units
-                slippage=0.01
+                amount=1.0  # Get price for 1 unit of input token
             )
             
-            # Calculate price in decimal units
-            # output_amount is in quote token base units, convert to decimal
-            # input_amount is in base token base units, convert to decimal (which is 1 token)
-            price_value = quote.output_amount / (10 ** pair.quote.decimals)
-            
             # If price_value is invalid, return None
-            if price_value is None or not isinstance(price_value, (int, float)) or price_value <= 0:
+            if price_value is None or not isinstance(price_value, (int, float)):
                 self.logger.warning(f"Invalid price value received: {price_value}")
                 return None
+            
+            # Convert to float if it's a numeric type that might be returned by mocks
+            try:
+                price_value = float(price_value)
+            except (ValueError, TypeError) as e:
+                self.logger.warning(f"Cannot convert price to float: {price_value}")
+                return None
+            
+            # Add validation for negative or zero prices
+            if price_value <= 0:
+                self.logger.warning(f"Negative or zero price value received: {price_value}")
+                raise PriceFetchError(f"Invalid price value: {price_value}. Price must be positive.")
+            
+            # Add validation for unreasonably high prices (potential calculation error)
+            if price_value > 1e6:  # More than 1 million per token is likely an error
+                self.logger.error(f"Suspected price calculation error: {price_value}")
+                raise PriceFetchError(f"Price value {price_value} exceeds reasonable threshold")
+            
+            # Add validation for unreasonably low prices
+            if price_value < 1e-6:  # Less than 0.000001 is likely an error
+                self.logger.error(f"Suspected price calculation error: {price_value}")
+                raise PriceFetchError(f"Price value {price_value} is below reasonable threshold")
             
             return Price(
                 value=price_value,
