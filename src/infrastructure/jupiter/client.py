@@ -3,6 +3,14 @@ Jupiter API V2 HTTP Client
 
 Async client for Jupiter API V2 using httpx.
 Implements quote, order, and execute endpoints.
+
+IMPORTANT: This integration requires access to Jupiter's official documentation
+via MCP tools. Ensure the following MCP tools are available:
+- mcp_jup_doc: For accessing Jupiter's official documentation
+- jup_doc_query_docs_filesystem_jupiter: For querying Jupiter API specs
+
+Without these tools, API endpoint changes and migrations cannot be properly tracked,
+leading to integration failures like the v6->v2 migration issue.
 """
 
 import asyncio

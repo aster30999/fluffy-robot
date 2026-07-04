@@ -24,6 +24,11 @@ This repository contains a legacy minimal Python script to test SOL to USDC swap
 - Python 3.8+
 - Solana Devnet RPC access
 - Internet connection
+- **MCP Documentation Tools** (for development):
+  - `mcp_jup_doc`: Jupiter official documentation access
+  - `jup_doc_query_docs_filesystem_jupiter`: Jupiter API specification queries
+
+**IMPORTANT**: Without MCP tools, API migrations and endpoint changes cannot be properly tracked, leading to integration failures. The Jupiter v6→v2 migration issue took 4+ hours to resolve due to lack of MCP access.
 
 ## Installation
 
