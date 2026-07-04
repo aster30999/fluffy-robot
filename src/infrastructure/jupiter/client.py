@@ -295,10 +295,25 @@ class JupiterClient:
         """
         logger.debug(f"Getting quote: {input_token} -> {output_token}, amount={amount}")
         
+        # Convert amount to integer string
+        # Jupiter API expects amount in smallest units (lamports for SOL)
+        # Convert float to int, leave integers and strings as-is
+        if isinstance(amount, float):
+            amount_str = str(int(amount))
+        elif isinstance(amount, int):
+            amount_str = str(amount)
+        else:  # string or other
+            try:
+                # Try to convert string float to int
+                amount_str = str(int(float(amount)))
+            except (ValueError, TypeError):
+                # If conversion fails, use as-is (might be already correct format)
+                amount_str = str(amount)
+        
         params = {
             "inputMint": input_token,
             "outputMint": output_token,
-            "amount": str(amount),
+            "amount": amount_str,
             "slippageBps": int(slippage * 10000),  # Convert to basis points
             "swapMode": swap_mode,
             **kwargs
