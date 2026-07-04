@@ -52,8 +52,8 @@ COPY --from=builder /opt/venv /opt/venv
 WORKDIR /app
 
 # Copy application code
-COPY src/ ./src/
-COPY tests/ ./tests/
+COPY src ./src/
+COPY tests ./tests/
 COPY .env.example .
 
 # Change ownership to non-root user

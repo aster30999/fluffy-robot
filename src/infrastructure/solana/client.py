@@ -226,6 +226,28 @@ class SolanaClient:
         
         raise SolanaConnectionError(f"HTTP request failed: {last_exception}")
     
+    def get_version(self) -> str:
+        """
+        Get Solana RPC version (synchronous).
+        
+        Returns:
+            Solana version string
+        """
+        import asyncio
+        return asyncio.run(self._get_version_async())
+    
+    async def _get_version_async(self) -> str:
+        """
+        Get Solana RPC version (asynchronous).
+        
+        Returns:
+            Solana version string
+        """
+        await self._ensure_clients()
+        version_result = await self._async_client.get_version()
+        # GetVersionResp has a value attribute which contains the version info
+        return str(version_result.value.solana_core) if hasattr(version_result, 'value') else 'unknown'
+    
     async def get_balance(self, address: str) -> Balance:
         """
         Get SOL balance for an address (using direct HTTP for efficiency).

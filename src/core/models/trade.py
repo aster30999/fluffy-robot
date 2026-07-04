@@ -213,6 +213,7 @@ class Decision:
         decision_id: Unique identifier for the decision (UUID or similar).
         token_pair: The trading pair this decision pertains to (from US-010).
         signal: The trading signal recommendation (BUY, SELL, NEUTRAL).
+        amount: The amount to trade in base token units. Defaults to 0.0.
         confidence: Confidence level in the decision (0.0 to 1.0).
                     0.0 = no confidence, 1.0 = certain.
         timestamp: When the decision was generated.
@@ -229,6 +230,7 @@ class Decision:
     signal: Signal
     confidence: float
     timestamp: datetime
+    amount: float = 0.0
     reasoning: str = ""
     indicators: Dict[str, Any] = field(default_factory=dict)
     portfolio_snapshot: Optional["Portfolio"] = None
@@ -273,6 +275,7 @@ class Decision:
             "decision_id": self.decision_id,
             "token_pair": self.token_pair.to_dict(),
             "signal": self.signal.name,
+            "amount": self.amount,
             "confidence": self.confidence,
             "timestamp": self.timestamp.isoformat(),
             "reasoning": self.reasoning,
@@ -316,6 +319,7 @@ class Decision:
             decision_id=data["decision_id"],
             token_pair=TokenPair.from_dict(data["token_pair"]),
             signal=signal,
+            amount=data.get("amount", 0.0),
             confidence=data["confidence"],
             timestamp=timestamp,
             reasoning=data.get("reasoning", ""),

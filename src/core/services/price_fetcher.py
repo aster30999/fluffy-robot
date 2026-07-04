@@ -170,16 +170,26 @@ class PriceFetcher:
             RateLimitError: If rate limited by Jupiter API
         """
         try:
-            # Use JupiterClient.get_price for simplicity
-            # This internally calls get_quote and calculates the price
-            price_value = await self.jupiter_client.get_price(
+            # Use JupiterClient.get_quote directly to get raw amounts
+            # Pass a reasonable amount in base units (e.g., 1 token worth)
+            # For SOL (9 decimals): 1 SOL = 10^9 lamports
+            # For USDC (6 decimals): 1 USDC = 10^6 units
+            base_units = 10 ** pair.base.decimals
+            
+            quote = await self.jupiter_client.get_quote(
                 input_token=pair.base.mint,
                 output_token=pair.quote.mint,
-                amount=1.0
+                amount=base_units,  # 1 token worth in base units
+                slippage=0.01
             )
             
-            # If get_price returns None or invalid value, return None
-            if price_value is None or not isinstance(price_value, (int, float)):
+            # Calculate price in decimal units
+            # output_amount is in quote token base units, convert to decimal
+            # input_amount is in base token base units, convert to decimal (which is 1 token)
+            price_value = quote.output_amount / (10 ** pair.quote.decimals)
+            
+            # If price_value is invalid, return None
+            if price_value is None or not isinstance(price_value, (int, float)) or price_value <= 0:
                 self.logger.warning(f"Invalid price value received: {price_value}")
                 return None
             

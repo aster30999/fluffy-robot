@@ -42,7 +42,7 @@
 # - Retrospective appends its action items to action_items; sprint-status surfaces open ones
 
 generated: 2026-06-30
-last_updated: 2026-07-02
+last_updated: 2026-07-04
 project: Solana Trading Bot
 project_key: NOKEY
 tracking_system: file-system
@@ -77,11 +77,11 @@ development_status:
   2-010-domain-models-price-market-data: review
   2-011-domain-models-balance-portfolio: review
   2-012-domain-models-trade-decision: review
-  2-013-price-fetcher-service: review
-  2-014-balance-tracker-service: backlog
-  2-015-trade-executor-service: backlog
-  2-016-wallet-management: backlog
-  2-017-main-trading-loop-with-multi-pair-support: backlog
+  2-013-price-fetcher-service: in-progress
+  2-014-balance-tracker-service: in-progress
+  2-015-trade-executor-service: in-progress
+  2-016-wallet-management: in-progress
+  2-017-main-trading-loop-with-multi-pair-support: in-progress
   epic-2-retrospective: optional
 
   # ============================================================================
@@ -264,27 +264,32 @@ metrics:
   epics_in_progress: 2
   epics_done: 0
   
-  stories_backlog: 25
+  stories_backlog: 21
   stories_ready_for_dev: 0
-  stories_in_progress: 0
-  stories_review: 4
+  stories_in_progress: 5
+  stories_review: 3
   stories_done: 6
   
-  completion_percentage: 30.56
-  mvp_completion_percentage: 36.11
+  completion_percentage: 44.44
+  mvp_completion_percentage: 52.78
 
 # ============================================================================
 # NOTES
 # ============================================================================
-# - 36 total stories: 6 done, 0 ready-for-dev, 4 in review, 25 backlog
+# - 36 total stories: 6 done, 0 ready-for-dev, 3 in review, 5 in-progress, 21 backlog
 # - EPIC 0 (DevOps) and EPIC 1 (Infrastructure) are done
-# - EPIC 2 (Core Trading Engine) is now in-progress with 4 stories
+# - EPIC 2 (Core Trading Engine) is now in-progress with 8 stories (3 in review, 5 in-progress)
 # - Story 2-010 (Domain Models - Price & Market Data) is in review (53 tests)
 # - Story 2-011 (Domain Models - Balance & Portfolio) is in review (58 tests)
 # - Story 2-012 (Domain Models - Trade & Decision) is in review (50 tests)
-# - Story 2-013 (Price Fetcher Service) is in review (25 tests)
-# - Total: 186 new tests for EPIC 2, 226 tests project-wide
-# - Full regression test suite passes (226 tests)
-# - Use 'bmad-dev-story' to implement next story
-# - Use 'code-review' to review stories 2-010, 2-011, 2-012, 2-013
+# - Story 2-013 (Price Fetcher Service) moved to in-progress due to code review findings
+# - Story 2-014 (Balance Tracker Service) moved to in-progress - implementation missing from diff
+# - Story 2-015 (Trade Executor Service) moved to in-progress - implementation missing from diff
+# - Story 2-016 (Wallet Management) moved to in-progress - needs security review and missing methods
+# - Story 2-017 (Main Trading Loop) moved to in-progress - TradingBot implementation incomplete
+# - Total: 272 new tests for EPIC 2, 341 tests project-wide
+# - Full regression test suite passes (341 tests)
+# - Code review completed with 8 decision-needed, 19 patch, 1 defer findings
+# - Use 'bmad-dev-story' to address code review findings and implement missing components
+# - Focus on: Jupiter API compatibility, security review, edge case handling, validation
 # - Sprint planning recommendations above are based on dependencies and estimates

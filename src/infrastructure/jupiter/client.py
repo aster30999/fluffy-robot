@@ -104,10 +104,10 @@ class JupiterClient:
     Includes retry logic with exponential backoff.
     """
     
-    # Jupiter API V2 endpoints
-    QUOTE_ENDPOINT = "/v6/quote"
-    ORDER_ENDPOINT = "/v6/order"
-    EXECUTE_ENDPOINT = "/v6/execute"
+    # Jupiter API V2 endpoints (updated to Swap API v1)
+    QUOTE_ENDPOINT = "/swap/v1/quote"
+    ORDER_ENDPOINT = "/swap/v1/swap"
+    EXECUTE_ENDPOINT = "/swap/v1/swap"
     
     # Default headers
     DEFAULT_HEADERS = {
@@ -133,7 +133,7 @@ class JupiterClient:
             max_retries: Maximum number of retries
             retry_delay: Initial delay between retries in seconds
         """
-        self.base_url = base_url or getattr(settings, 'jupiter_api_url', 'https://quote-api.jup.ag')
+        self.base_url = base_url or getattr(settings, 'jupiter_api_url', 'https://api.jup.ag')
         self.api_key = api_key or (getattr(settings, 'jupiter_api_key', None))
         self.timeout = timeout
         self.max_retries = max_retries
@@ -294,17 +294,15 @@ class JupiterClient:
         # Validate required fields
         if "outAmount" not in data:
             raise JupiterQuoteError("Invalid quote response: missing outAmount field")
-        if "quoteId" not in data:
-            raise JupiterQuoteError("Invalid quote response: missing quoteId field")
         
-        # Parse response
+        # Parse response - API v1 returns routePlan instead of route, and no quoteId
         try:
             return QuoteResponse(
                 input_amount=float(amount),
                 output_amount=float(data.get("outAmount", 0)),
                 price_impact=float(data.get("priceImpactPct", 0)),
                 fees={str(k): float(v) for k, v in data.get("fees", {}).items()},
-                route=data.get("route", []),
+                route=data.get("routePlan", []),
                 raw=data
             )
         except (KeyError, ValueError, TypeError) as e:

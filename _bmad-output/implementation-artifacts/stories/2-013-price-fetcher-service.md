@@ -42,6 +42,14 @@ baseline_commit: "052e8d98f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5"
 - [x] Add comprehensive logging for debugging and monitoring
 - [x] Write unit tests with mocked `JupiterClient` in `tests/unit/core/services/test_price_fetcher.py`
 
+
+### Review Findings
+
+- [ ] [Review][Patch] src/core/services/price_fetcher.py: Price calculat...
+- [ ] [Review][Patch] src/core/services/price_fetcher.py: No validation ...
+- [ ] [Review][Patch] Negative or zero price values not handled [src/core/services/price_fetcher.py:170-185]
+- [ ] [Review][Patch] base_units calculation could overflow for high-decimal tokens [src/core/services/price_fetcher.py:175]
+- [ ] [Review][Patch] Price calculation logic may not match spec
 ## 🏗️ Technical Implementation
 
 ### Service Layer Alignment

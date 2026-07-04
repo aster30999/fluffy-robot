@@ -81,7 +81,7 @@ class JupiterSettings(BaseSettings):
     )
     
     jupiter_api_url: str = Field(
-        default="https://quote-api.jup.ag",
+        default="https://api.jup.ag",
         env="JUPITER_API_URL"
     )
     

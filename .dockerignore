@@ -64,10 +64,6 @@ htmlcov/
 .dmypy.json
 dmypy.json
 
-# CI/CD
-.github/
-.github/
-
 # OS
 .DS_Store
 Thumbs.db
@@ -94,7 +90,6 @@ docker-compose*.yml
 !docker-compose.yml
 
 # Python cache
-__pycache__/
 *pytest*
 *tox*
 *nox*
