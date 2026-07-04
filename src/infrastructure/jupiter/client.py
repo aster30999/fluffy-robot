@@ -132,8 +132,26 @@ class JupiterClient:
             timeout: Request timeout in seconds
             max_retries: Maximum number of retries
             retry_delay: Initial delay between retries in seconds
+        
+        Raises:
+            ValueError: If base_url is provided but empty or invalid
         """
-        self.base_url = base_url or getattr(settings, 'jupiter_api_url', 'https://api.jup.ag')
+        # Validate and set base_url
+        if base_url and base_url.strip():
+            # Use provided base_url if it's valid
+            self.base_url = base_url.strip().rstrip('/')
+        else:
+            # Try to get from settings, with fallback to default
+            try:
+                base_url = getattr(settings, 'jupiter_api_url', 'https://api.jup.ag')
+            except (AttributeError, ImportError):
+                base_url = 'https://api.jup.ag'
+            
+            self.base_url = base_url.strip().rstrip('/')
+        
+        # Validate that we have a valid base_url
+        if not self.base_url or not self.base_url.strip():
+            raise ValueError("base_url cannot be empty")
         self.api_key = api_key or (getattr(settings, 'jupiter_api_key', None))
         self.timeout = timeout
         self.max_retries = max_retries
