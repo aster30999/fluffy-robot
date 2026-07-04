@@ -104,10 +104,10 @@ class JupiterClient:
     Includes retry logic with exponential backoff.
     """
     
-    # Jupiter API V2 endpoints (updated to Swap API v1)
-    QUOTE_ENDPOINT = "/swap/v1/quote"
-    ORDER_ENDPOINT = "/swap/v1/swap"
-    EXECUTE_ENDPOINT = "/swap/v1/swap"
+    # Jupiter API V6 endpoints (current stable version)
+    QUOTE_ENDPOINT = "/v6/quote"
+    ORDER_ENDPOINT = "/v6/swap"
+    EXECUTE_ENDPOINT = "/v6/swap"
     
     # Default headers
     DEFAULT_HEADERS = {
